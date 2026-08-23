@@ -10,15 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Configure Git
         run: |
-          subprocess.run(["git", "config", "user.name", "Nasvyni"])
-          subprocess.run(["git", "config", "user.email", "bundo.maria@gmail.com"])
+          git config --global user.name "Nasvyni"
+          git config --global user.email "bundo.maria@gmail.com"
+
       - name: Sync latest changes
         run: git pull origin main --rebase
+
       - name: Run Script
         run: python generate.py
+
       - name: Push Commits
         run: git push origin main
